@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+   <div class="container flex">
+    <div class="img_candidato flex">
+        <img src="" alt="" srcset="">
+        <div class="inf_candidato">
+            <h2></h2>
+            <p></p>
+        </div>
+        <input type="number" id='digito1' onkeyup='mostrar_candidato()' disabled >
+        <input type="number" id='digito2' onkeyup='mostrar_candidato()'disabled >
+    </div>
+    <div class="teclado flex">
+        
+        <!--<div id="1">1</div>
+        <div id="2">2</div>
+        <div id="3">3</div>
+        <div id="4">4</div>
+        <div id="5">5</div>
+        <div id="6">6</div>
+        <div id="7">7</div>
+        <div id="8">8</div>
+        <div id="9">9</div>
+        <div id="0">0</div>-->
+        <div class="btn flex">
+            <button class="votar" style="background-color: green;" onclick="votar()">VOTAR</button>
+            <button class="branco" style="background-color: white;"onclick="branco()">BRANCO</button>
+            <button class="corrigir" style="background-color: darkorange;" onclick="corrigir()">CORRIGIR</button>
+        </div>
+    </div>
+   </div>
+<script>
+   
+    for (let i= 0; i < 10; i++) {
+       document.querySelector('.teclado').innerHTML+=`<div class="numero_btn" id="${i}" value="${i}"onclick="digitar()">${i}</div>`;           
+    }
+
+    var digito1 = document.querySelector('#digito1');
+    var digito2 = document.querySelector('#digito2');
+    var qtd_votos = [];
+    
+    digito1.value = 0;
+    digito2.value = 0;
+
+    function digitar(){
+        let id = event.target.id; // pegar id com ação do click
+              //adicionar valor no input
+        if(digito1.value == 0){
+           digito1.value = id; 
+        }else{ 
+           digito2.value = id;
+        }
+
+        var soma = digito1.value+digito2.value;
+
+        switch (Number(soma)) {
+            case 15:
+                chamar_candidato('https://ibcdn.canaltech.com.br/8FplhVkDQdAatiUcehCimgkGJlI=/512x288/smart/i257652.jpeg','Arara Matadora','15');
+            break;
+
+            case 25:
+                chamar_candidato('https://meusanimais.com.br/wp-content/uploads/2018/06/raposa-1.jpg','Rapoza Caçadora','25');
+            break;
+        
+            default:
+                break;
+        }
+    }
+
+    function corrigir(){
+        digito1.value = 0;
+        digito2.value = 0;
+        document.querySelector('.img_candidato #digito1').style.display = 'block';
+        document.querySelector('.img_candidato #digito2').style.display = 'block'; 
+        document.querySelector('.img_candidato img').style.display = 'none';
+        document.querySelector('h2').style.display = 'none';  
+        document.querySelector('p').style.display = 'none';
+    }
+
+    function branco(){
+        document.querySelector('.img_candidato img').style.display = 'none';
+        document.querySelector('h2').style.display = 'none';  
+        document.querySelector('p').style.display = 'none';
+        document.querySelector('.img_candidato').innerHTML = 'Voto Branco !'
+        qtd_votos.push(0);
+    }
+
+    function votar(){
+        let somar = digito1.value+digito2.value;      
+        qtd_votos.push(somar);
+        console.log(qtd_votos);
+        corrigir();
+    }
+
+    function chamar_candidato(img='',nome='',numero=''){
+        document.querySelector('.img_candidato #digito1').style.display = 'none';
+        document.querySelector('.img_candidato #digito2').style.display = 'none'; 
+        document.querySelector('.img_candidato img').style.display = 'block';
+        document.querySelector('.img_candidato img').src=img;  
+        document.querySelector('h2').style.display = 'block';  
+        document.querySelector('p').style.display = 'block';  
+        document.querySelector('h2').innerHTML = nome;
+        document.querySelector('p').innerHTML = numero;
+    }
+
+</script>
+</body>
+</html>
